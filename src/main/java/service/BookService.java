@@ -10,7 +10,6 @@ import java.util.List;
  * @DESCRIPTION:
  * @DATE:2019/10/1
  **/
-
 public interface BookService{
 
     public Book findBookById(String bookId);

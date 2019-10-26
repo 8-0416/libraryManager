@@ -13,7 +13,7 @@ public class Borrow {
     private Date borrowDate;
     private Date returnDate;
     private int time;
-    private boolean isReturn;
+    private Integer isReturn;
 
     public String getBookId() {
         return bookId;
@@ -55,11 +55,11 @@ public class Borrow {
         this.time = time;
     }
 
-    public boolean isReturn() {
+    public Integer isReturn() {
         return isReturn;
     }
 
-    public void setReturn(boolean aReturn) {
+    public void setReturn(Integer aReturn) {
         isReturn = aReturn;
     }
 }

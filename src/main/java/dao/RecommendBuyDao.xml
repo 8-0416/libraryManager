@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 图书荐购 -->
+<mapper namespace="dao.RecommendBuyDao">
+    <resultMap id="recommendMap" type="recommendBuy">
+        <id property="recommendId" column="recommend_id"/>
+        <result property="bookName" column="book_name"/>
+        <result property="authorName" column="author_name"/>
+        <result property="publicationDate" column="publication_date"/>
+        <result property="press" column="press"/>
+        <result property="version" column="version"/>
+        <result property="recommendTime" column="recommend_time"/>
+        <result property="isRead" column="is_read"/>
+    </resultMap>
+
+    <!-- 插入推荐记录 -->
+    <insert id="addRecommend" parameterType="recommendBuy">
+        INSERT INTO recommend_buy (book_name, author_name, publication_date, press, version, recommend_time, is_read)
+        VALUES (#{bookName}, #{authorName}, #{publicationDate}, #{press}, #{version}, #{recommendTime}, #{isRead})
+    </insert>
+</mapper>

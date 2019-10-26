@@ -1,22 +1,44 @@
 package po;
 
 /**
- * @AUTHOR:0416
- * @DESCRIPTION:
- * @DATE:2019/10/1
- **/
+ * @author FHJ
+ * @date 2019/10/26 15:58
+ * 用户信息
+ */
 public class User {
-    private String id;
-    private String password;
-    private String username;
+    // 用户id
+    private String userId;
+    // 姓名
+    private String name;
+    // 手机
     private String phone;
+    // 密码
+    private String password;
+    // 用户权限
+    private Integer permissions;
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {
@@ -27,19 +49,11 @@ public class User {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getPermissions() {
+        return permissions;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPermissions(Integer permissions) {
+        this.permissions = permissions;
     }
 }
