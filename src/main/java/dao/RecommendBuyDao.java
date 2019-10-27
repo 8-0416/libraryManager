@@ -1,6 +1,9 @@
 package dao;
 
+import po.Book;
 import po.RecommendBuy;
+
+import java.util.List;
 
 /**
  * @author FHJ
@@ -10,4 +13,8 @@ import po.RecommendBuy;
 public interface RecommendBuyDao {
     // 添加荐购
     Integer addRecommend(RecommendBuy recommendBuy);
+
+    List<RecommendBuy> findRecommendBookNotRead();
+
+    void readRecommendBook();
 }

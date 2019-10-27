@@ -10,7 +10,7 @@ import po.RecommendBuy;
 import service.RecommendBuyService;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 /**
  * @author FHJ
@@ -56,5 +56,35 @@ public class RecommendController {
         } else {
             return message.fail("数据添加失败！");
         }
+    }
+
+    @RequestMapping("/findRecommendBookNotRead.do")
+    @ResponseBody
+    public Message findRecommendBookNotRead(){
+        Message message = new Message();
+        List<RecommendBuy> book = new ArrayList();
+        try{
+            book = recommendBuyService.findRecommendBookNotRead();
+        }catch (Exception e){
+            e.printStackTrace();
+            return message.fail();
+        }
+        Map<String, List> map = new HashMap<>();
+        map.put("listBook", book);
+        message.setReturnData(map);
+        return message.success();
+    }
+
+    @RequestMapping("/readRecommendBook.do")
+    @ResponseBody
+    public Message readRecommendBook(){
+        Message message = new Message();
+        try{
+            recommendBuyService.readRecommendBook();
+        }catch (Exception e){
+            e.printStackTrace();
+            return message.fail();
+        }
+        return message.success();
     }
 }

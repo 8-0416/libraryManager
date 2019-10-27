@@ -1,9 +1,8 @@
 package po;
 
 /**
- * @AUTHOR:0416
- * @DESCRIPTION:
- * @DATE:2019/10/1
+ * @author 0416
+ * @date 2019/10/1
  **/
 public class Book {
     private String bookId;
@@ -15,6 +14,7 @@ public class Book {
     private String bookPage;
     private float price;
     private String publishDate;
+    private LibraryCollection libraryCollection;
 
     public String getBookId() {
         return bookId;
@@ -86,5 +86,13 @@ public class Book {
 
     public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
+    }
+
+    public LibraryCollection getLibraryCollection() {
+        return libraryCollection;
+    }
+
+    public void setLibraryCollection(LibraryCollection libraryCollection) {
+        this.libraryCollection = libraryCollection;
     }
 }

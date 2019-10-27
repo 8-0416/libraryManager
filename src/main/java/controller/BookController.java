@@ -13,14 +13,14 @@ import po.Message;
 import po.Page;
 import service.BookService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @AUTHOR:0416
- * @DESCRIPTION:
- * @DATE:2019/10/1
+ * @author 0416
+ * @date 2019/10/1
  **/
 @Controller
 public class BookController {
@@ -33,7 +33,7 @@ public class BookController {
     public Message findBookBypageNum(Integer pageNum){
         Page page = new Page(pageNum, recordOfOnePage);
         Message message = new Message();
-        List<Book> book = null;
+        List<Book> book;
         try {
             book = bookService.findBookByPageNum(page);
         }catch (Exception e){
@@ -46,10 +46,10 @@ public class BookController {
         return message.success();
     }
 
-    @RequestMapping("/findBookByfield.do")
+    @RequestMapping(value="/findBookByfield.do")
     @ResponseBody
     public Message findBookByfield(String field, String info){
-        List<Book> book = null;
+        List<Book> book ;
         Message message = new Message();
         try{
             book = bookService.findBookByfield(field, info);
@@ -80,7 +80,7 @@ public class BookController {
     @ResponseBody
     public Message updateBookInfo(@RequestBody Book book){
         Message message = new Message();
-        Book newBook = null;
+        Book newBook;
         try{
             newBook = bookService.findBookById(book.getBookId());
             if(newBook == null){
@@ -117,6 +117,23 @@ public class BookController {
             e.printStackTrace();
             return message.fail();
         }
+        return message.success();
+    }
+
+    @RequestMapping("/findBookDetail.do")
+    @ResponseBody
+    public Message findBookDetail(String bookId){
+        Message message = new Message();
+        List<Book> books;
+        try{
+            books = bookService.findBookDetail(bookId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return message.fail("查询失败!");
+        }
+        Map<String, List> map = new HashMap<>();
+        map.put("listBook", books);
+        message.setReturnData(map);
         return message.success();
     }
 }

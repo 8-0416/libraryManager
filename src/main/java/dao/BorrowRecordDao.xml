@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 借书记录 -->
 <mapper namespace="dao.BorrowRecordDao">
-    <resultMap id="borrowMap" type="borrowRecord">
+    <resultMap id="borrowRecordMap" type="borrowRecord">
         <id property="bookId" column="book_id"/>
         <result property="userId" column="user_id"/>
         <result property="borrowDate" column="borrow_date"/>
@@ -14,7 +14,7 @@
     </resultMap>
 
     <!-- 根据学号（工号）查询学生（老师）借书记录 -->
-    <select id="findBorrwoRecordById" resultMap=""
+
 
     <!-- 根据学号（工号）和图书id修改续借次数 -->
     <update id="updateBorrowTimeByUserIdAndBookId">
@@ -38,4 +38,16 @@
         FROM borrow_record
         WHERE user_id = #{userId}
     </select>
+
+    <insert id="addBorrowRecord" parameterType="borrowRecord">
+        INSERT INTO borrow_record(book_id,user_id,borrow_date,return_date)
+        VALUES (#{bookId},#{userId},#{borrowDate},#{returnDate})
+    </insert>
+
+    <select id="findBorrowRecord" resultMap="borrowRecordMap">
+        SELECT *
+        FROM borrow_record
+        WHERE is_return = 0;
+    </select>
 </mapper>
+

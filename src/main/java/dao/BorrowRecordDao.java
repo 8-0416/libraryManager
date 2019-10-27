@@ -21,4 +21,11 @@ public interface BorrowRecordDao {
 
     // 根据学号（工号）查询借书总记录数
     Integer findTotalNumByUserId(String userId);
+
+    void addBorrowRecord(BorrowRecord borrowRecord);
+
+    List<BorrowRecord> findBorrowRecord();
+
+    //TODO
+    //void renewBook();
 }

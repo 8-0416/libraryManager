@@ -20,4 +20,17 @@
         INSERT INTO recommend_buy (book_name, author_name, publication_date, press, version, recommend_time, is_read)
         VALUES (#{bookName}, #{authorName}, #{publicationDate}, #{press}, #{version}, #{recommendTime}, #{isRead})
     </insert>
+
+    <select id="findRecommendBookNotRead" resultMap="recommendMap">
+        SELECT *
+        FROM recommend_buy
+        WHERE is_read = 0;
+    </select>
+
+    <update id="readRecommendBook" >
+        UPDATE recommend_buy
+        SET is_read = 1
+        WHERE is_read = 0;
+    </update>
+
 </mapper>

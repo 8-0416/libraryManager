@@ -6,21 +6,22 @@ import po.Page;
 import java.util.List;
 
 /**
- * @AUTHOR:0416
- * @DESCRIPTION:
- * @DATE:2019/10/1
+ * @author 0416
+ * @date 2019/10/1
  **/
 public interface BookService{
 
-    public Book findBookById(String bookId);
+    Book findBookById(String bookId);
 
-    public List<Book> findBookByPageNum(Page page);
+    List<Book> findBookByPageNum(Page page);
 
-    public List<Book> findBookByfield(String field, String info);
+    List<Book> findBookByfield(String field, String info);
 
-    public void entryBook(Book book);
+    void entryBook(Book book);
 
-    public void updateBookInfo(Book book);
+    void updateBookInfo(Book book);
 
-    public void deleteBook(String bookId);
+    void deleteBook(String bookId);
+
+    List<Book> findBookDetail(String bookId);
 }
