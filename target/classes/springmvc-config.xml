@@ -15,11 +15,25 @@
     <mvc:annotation-driven/>
 
     <!--配置静态资源的访问映射，此配置中的文件，将不被前端控制器拦截 -->
-    <mvc:resources location="/image/" mapping="/images/**" />
+    <mvc:resources location="/image/" mapping="/images/**"/>
 
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--<property name="prefix" value="   "/>-->
         <property name="suffix" value=".html"/>
     </bean>
+
+    <!-- 配置拦截器 -->
+    <!--<<mvc:interceptors>
+        <mvc:interceptor>
+            &lt;!&ndash; 指定拦截的路径 &ndash;&gt;
+            <mvc:mapping path="/**/*.do"/>
+            &lt;!&ndash; 指定不拦截的路径 &ndash;&gt;
+            <mvc:exclude-mapping path="/**/login.do"/>
+            <mvc:exclude-mapping path="/**/register.do"/>
+            <mvc:exclude-mapping path="/**/changePassword.do"/>
+            &lt;!&ndash; 指定拦截器 &ndash;&gt;
+            <bean class="interceptor.TokenIntercptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
 </beans>
