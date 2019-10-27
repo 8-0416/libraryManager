@@ -8,8 +8,11 @@ import java.util.Map;
  * @date 2019/10/5
  **/
 public class Message {
+    // 状态码
     private String stateCode;
+    // 提示语
     private String prompt;
+    // 返回数据
     private Map returnData;
 
     public Message success(){
