@@ -3,9 +3,9 @@ package po;
 import java.util.Map;
 
 /**
- * @AUTHOR:0416
- * @DESCRIPTION:返回信息
- * @DATE:2019/10/5
+ * @author 0416
+ * 返回信息
+ * @date 2019/10/5
  **/
 public class Message {
     private String stateCode;

@@ -1,9 +1,8 @@
 package po;
 
 /**
- * @AUTHOR:0416
- * @DESCRIPTION:
- * @DATE:2019/10/5
+ * @author 0416
+ * @date 2019/10/5
  **/
 public class Page {
     private Integer pageNum;

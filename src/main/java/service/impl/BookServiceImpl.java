@@ -11,9 +11,8 @@ import service.BookService;
 import java.util.List;
 
 /**
- * @AUTHOR:0416
- * @DESCRIPTION:
- * @DATE:2019/10/1
+ * @author 0416
+ * @date 2019/10/1
  **/
 @Service("bookService")
 @Transactional(rollbackFor = Exception.class)
@@ -49,5 +48,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(String bookId){
         this.bookDao.deleteBook(bookId);
+    }
+
+    @Override
+    public List<Book> findBookDetail(String bookId) {
+        return this.bookDao.findBookDetail(bookId);
     }
 }
