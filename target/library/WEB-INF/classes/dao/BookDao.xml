@@ -35,7 +35,7 @@
         #{publisher},#{bookPage},#{price})
     </insert>
 
-    <select id="findBookByfield" resultMap="bookDetail">
+    <select id="findBookByfield" resultMap="bookDetail" >
         select *
         from l_book
         where ${arg0} like concat('%', #{arg1}, '%')

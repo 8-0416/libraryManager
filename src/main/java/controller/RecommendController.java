@@ -30,14 +30,6 @@ public class RecommendController {
         // 作者名
         String authorName = recommendBuy.getAuthorName();
 
-        System.out.println(recommendBuy.getAuthorName());
-        System.out.println(recommendBuy.getBookName());
-        System.out.println(recommendBuy.getIsRead());
-        System.out.println(recommendBuy.getPress());
-        System.out.println(recommendBuy.getPublicationDate());
-        System.out.println(recommendBuy.getRecommendTime());
-        System.out.println(recommendBuy.getRecommendId());
-
         Message message = new Message();
 
         if (bookName == null || authorName == null || bookName.equals("") || authorName.equals("")) {
