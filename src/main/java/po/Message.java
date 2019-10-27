@@ -15,6 +15,12 @@ public class Message {
     // 返回数据
     private Map returnData;
 
+    public Message setCodeAndPrompt(String stateCode, String prompt){
+        this.setStateCode(stateCode);
+        this.setPrompt(prompt);
+        return this;
+    }
+
     public Message success(){
         this.setStateCode("200");
         this.setPrompt("执行成功");

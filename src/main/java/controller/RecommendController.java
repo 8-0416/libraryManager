@@ -1,8 +1,8 @@
 package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import po.Message;
@@ -16,6 +16,7 @@ import java.util.Date;
  * @author FHJ
  * @date 2019/10/26 18:44
  */
+@CrossOrigin
 @Controller
 public class RecommendController {
 
@@ -25,6 +26,7 @@ public class RecommendController {
     @RequestMapping("/addRecommend.do")
     @ResponseBody
     public Message addRecommend(RecommendBuy recommendBuy) {
+
         // 荐购的书名
         String bookName = recommendBuy.getBookName();
         // 作者名
@@ -34,6 +36,10 @@ public class RecommendController {
 
         if (bookName == null || authorName == null || bookName.equals("") || authorName.equals("")) {
             return message.fail("必要数据不能为空！");
+        }
+
+        if(recommendBuy.getPublicationDate() != null && recommendBuy.getPublicationDate().equals("")){
+            recommendBuy.setPublicationDate(null);
         }
 
         // 添加荐购时间

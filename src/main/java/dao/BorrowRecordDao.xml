@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 借书记录 -->
+<mapper namespace="dao.BorrowRecordDao">
+    <resultMap id="borrowMap" type="borrowRecord">
+        <id property="bookId" column="book_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="borrowDate" column="borrow_date"/>
+        <result property="returnDate" column="return_date"/>
+        <result property="borrowTime" column="borrow_time"/>
+        <result property="isReturn" column="is_return"/>
+    </resultMap>
+
+    <!-- 根据学号（工号）查询学生（老师）借书记录 -->
+    <select id="findBorrwoRecordById" resultMap=""
+
+    <!-- 根据学号（工号）和图书id修改续借次数 -->
+    <update id="updateBorrowTimeByUserIdAndBookId">
+        UPDATE borrow_record
+        SET borrow_time = borrow_time + 1
+        WHERE user_id = #{userId}
+          AND book_id = #{bookId}
+    </update>
+
+    <!-- 根据学号（工号）和图书id查询续借次数 -->
+    <select id="findBorrowTimeByUserIdAndBookId" resultType="Integer">
+        SELECT borrow_time
+        FROM borrow_record
+        WHERE user_id = #{userId}
+          AND book_id = #{bookId}
+    </select>
+
+    <!-- 根据学号（工号）查询借书总记录数 -->
+    <select id="findTotalNumByUserId" resultType="Integer">
+        SELECT COUNT(user_id)
+        FROM borrow_record
+        WHERE user_id = #{userId}
+    </select>
+</mapper>
