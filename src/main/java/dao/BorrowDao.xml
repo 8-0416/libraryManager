@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 借书记录 -->
 <mapper namespace="dao.BorrowDao">
-    <resultMap id="borrowMap" type="borrow">
+    <resultMap id="borrowMap" type="borrowRecord">
         <id property="bookId" column="book_id"/>
         <result property="userId" column="user_id"/>
         <result property="borrowDate" column="borrow_date"/>

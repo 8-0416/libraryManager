@@ -31,7 +31,7 @@ public class BookController {
     @RequestMapping("/findBookByPageNum.do")
     @ResponseBody
     public Message findBookBypageNum(Integer pageNum){
-        Page page = new Page(pageNum, recordOfOnePage);
+        Page page = new Page(pageNum, recordOfOnePage + 1);
         Message message = new Message();
         List<Book> book;
         try {
