@@ -39,7 +39,7 @@ public class Page {
     }
 
     public Integer getEndRecord() {
-        return pageNum*records - 1;
+        return pageNum*records;
     }
 
 }

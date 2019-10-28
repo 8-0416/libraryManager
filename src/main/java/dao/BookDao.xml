@@ -44,8 +44,9 @@
     </select>
 
     <insert id="entryBook" parameterType="Book" >
-        insert into book
-        values (#{bookId}, #{isbn}, #{bookName},#{author},#{bookPlace},#{publishDate},
+        insert into book(book_isbn, book_name,book_author,book_place,book_date,book_publisher,book_page,
+        book_price)
+        values (#{isbn}, #{bookName},#{author},#{bookPlace},#{publishDate},
         #{publisher},#{bookPage},#{price})
     </insert>
 
