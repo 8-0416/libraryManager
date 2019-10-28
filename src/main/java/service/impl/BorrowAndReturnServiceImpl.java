@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import po.BorrowRecord;
 import service.BorrowAndReturnService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,5 +29,25 @@ public class BorrowAndReturnServiceImpl implements BorrowAndReturnService {
     @Override
     public List<BorrowRecord> findBorrowRecord() {
         return borrowRecordDao.findBorrowRecord();
+    }
+
+    @Override
+    public List<BorrowRecord> findBorrowRecordById(String userId, Integer startPage, Integer pageSize) {
+        return borrowRecordDao.findBorrowRecordById(userId, startPage, pageSize);
+    }
+
+    @Override
+    public Integer updateBorrowTimeByUserIdAndBookId(String userId, String bookId) {
+        return borrowRecordDao.updateBorrowTimeByUserIdAndBookId(userId, bookId);
+    }
+
+    @Override
+    public Integer findBorrowTimeByUserIdAndBookId(String userId, String bookId) {
+        return borrowRecordDao.findBorrowTimeByUserIdAndBookId(userId, bookId);
+    }
+
+    @Override
+    public Integer findTotalNumByUserId(String userId) {
+        return borrowRecordDao.findTotalNumByUserId(userId);
     }
 }

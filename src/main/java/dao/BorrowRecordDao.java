@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface BorrowRecordDao {
     // 根据学号（工号）查询学生（老师）借书记录
-    List<BorrowRecord> findBorrwoRecordById(@Param("userId") String userId, @Param("startPage") String startPage, @Param("pageSize") String pageSize);
+    List<BorrowRecord> findBorrowRecordById(@Param("userId") String userId, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize);
 
     // 根据学号（工号）和图书id修改续借次数
     Integer updateBorrowTimeByUserIdAndBookId(@Param("userId") String userId, @Param("bookId") String bookId);
