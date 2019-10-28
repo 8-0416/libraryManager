@@ -8,6 +8,7 @@ public class BorrowRecordDto {
     private String bookName;
     private String borrowDate;
     private String returnDate;
+    private Integer borrowTime;
     private Integer isReturn;
 
     public String getBookName() {
@@ -32,6 +33,14 @@ public class BorrowRecordDto {
 
     public void setReturnDate(String returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public Integer getBorrowTime() {
+        return borrowTime;
+    }
+
+    public void setBorrowTime(Integer borrowTime) {
+        this.borrowTime = borrowTime;
     }
 
     public Integer getIsReturn() {

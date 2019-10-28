@@ -1,6 +1,7 @@
 package service.impl;
 
 import dao.BorrowRecordDao;
+import dto.BorrowRecordDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +33,8 @@ public class BorrowAndReturnServiceImpl implements BorrowAndReturnService {
     }
 
     @Override
-    public List<BorrowRecord> findBorrowRecordById(String userId, Integer startPage, Integer pageSize) {
-        return borrowRecordDao.findBorrowRecordById(userId, startPage, pageSize);
+    public List<BorrowRecordDto> findBorrowRecordByUserId(String userId, Integer startIndex, Integer pageSize) {
+        return borrowRecordDao.findBorrowRecordByUserId(userId, startIndex, pageSize);
     }
 
     @Override

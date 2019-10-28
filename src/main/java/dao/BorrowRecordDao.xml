@@ -14,12 +14,12 @@
     </resultMap>
 
     <!-- 根据学号（工号）查询学生（老师）借书记录 -->
-    <select id="findBorrowRecordById" resultType="borrowRecordDto">
-        select b.book_name as bookName, br.borrow_date as borrowDate, br.return_date as returnDate, br.is_return as isReturn
+    <select id="findBorrowRecordByUserId" resultType="borrowRecordDto">
+        select b.book_name as bookName, br.borrow_date as borrowDate, br.return_date as returnDate, br.borrow_time as borrowTime, br.is_return as isReturn
         from book b, borrow_record br
         where br.user_id = #{userId} and b.book_id = br.book_id
         order by returnDate
-        limit #{startPage}, #{pageSize}
+        limit #{startIndex}, #{pageSize}
     </select>
 
     <!-- 根据学号（工号）和图书id修改续借次数 -->

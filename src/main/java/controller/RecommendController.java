@@ -35,7 +35,7 @@ public class RecommendController {
         Message message = new Message();
 
         if (bookName == null || authorName == null || bookName.equals("") || authorName.equals("")) {
-            return message.fail("必要数据不能为空！");
+            return message.setCodeAndPrompt("0", "必要数据不能为空！");
         }
 
         if(recommendBuy.getPublicationDate() != null && recommendBuy.getPublicationDate().equals("")){
@@ -52,9 +52,9 @@ public class RecommendController {
         int state = recommendBuyService.addRecommend(recommendBuy);
 
         if (state == 1) {
-            return message.success("成功添加一条数据！");
+            return message.setCodeAndPrompt("1", "成功添加一条数据！");
         } else {
-            return message.fail("数据添加失败！");
+            return message.setCodeAndPrompt("2", "数据添加失败！");
         }
     }
 

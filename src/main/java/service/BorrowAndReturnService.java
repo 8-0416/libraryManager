@@ -1,5 +1,6 @@
 package service;
 
+import dto.BorrowRecordDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import po.BorrowRecord;
@@ -17,7 +18,7 @@ public interface BorrowAndReturnService {
     List<BorrowRecord> findBorrowRecord();
 
     // 根据学号（工号）查询学生（老师）借书记录
-    List<BorrowRecord> findBorrowRecordById(String userId, Integer startPage, Integer pageSize);
+    List<BorrowRecordDto> findBorrowRecordByUserId(String userId, Integer startIndex, Integer pageSize);
 
     // 根据学号（工号）和图书id修改续借次数
     Integer updateBorrowTimeByUserIdAndBookId(String userId, String bookId);

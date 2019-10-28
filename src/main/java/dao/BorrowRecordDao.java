@@ -1,5 +1,6 @@
 package dao;
 
+import dto.BorrowRecordDto;
 import org.apache.ibatis.annotations.Param;
 import po.BorrowRecord;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface BorrowRecordDao {
     // 根据学号（工号）查询学生（老师）借书记录
-    List<BorrowRecord> findBorrowRecordById(@Param("userId") String userId, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize);
+    List<BorrowRecordDto> findBorrowRecordByUserId(@Param("userId") String userId, @Param("startIndex") Integer startPage, @Param("pageSize") Integer pageSize);
 
     // 根据学号（工号）和图书id修改续借次数
     Integer updateBorrowTimeByUserIdAndBookId(@Param("userId") String userId, @Param("bookId") String bookId);
