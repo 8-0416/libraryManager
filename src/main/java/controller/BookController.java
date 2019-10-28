@@ -1,19 +1,13 @@
 package controller;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import po.Book;
 import po.Message;
 import po.Page;
 import service.BookService;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +16,7 @@ import java.util.Map;
  * @author 0416
  * @date 2019/10/1
  **/
+@CrossOrigin
 @Controller
 public class BookController {
     @Autowired
@@ -67,13 +62,17 @@ public class BookController {
     @ResponseBody
     public Message entryBook(@RequestBody Book book){
         Message message = new Message();
+        List<Book> temp = bookService.findBookByfield("book_isbn", book.getIsbn());
+        if(temp != null){
+            return message.fail("该isbn已存在，请重新输入！");
+        }
         try{
             bookService.entryBook(book);
         }catch (Exception e){
             e.printStackTrace();
-            return message.fail();
+            return message.fail("添加失败！");
         }
-        return message.success();
+        return message.success("添加成功！");
     }
 
     @RequestMapping("/updateBookInfo.do")
