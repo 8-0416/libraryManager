@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "dao.BorrowRecordDao">
+    <resultMap id="borrowRecordMap" type="borrowRecord">
+        <id property="bookId" column="book_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="borrowDate" column="borrow_date"/>
+        <result property="returnDate" column="return_date"/>
+        <result property="borrowTime" column="borrow_time"/>
+        <result property="isReturn" column="is_return"/>
+    </resultMap>
+
+    <insert id="addBorrowRecord" parameterType="borrowRecord">
+        INSERT INTO borrow_record(book_id,user_id,borrow_date,return_date)
+        VALUES (#{bookId},#{userId},#{borrowDate},#{returnDate})
+    </insert>
+
+    <select id="findBorrowRecord" resultMap="borrowRecordMap">
+        SELECT *
+        FROM borrow_record
+        WHERE is_return = 0;
+    </select>
+</mapper>
+
