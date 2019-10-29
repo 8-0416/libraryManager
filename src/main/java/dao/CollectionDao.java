@@ -9,4 +9,6 @@ import po.LibraryCollection;
 public interface CollectionDao {
 
     LibraryCollection findCollectionByBookId(Integer integer);
+
+    void addCollection(LibraryCollection collection);
 }

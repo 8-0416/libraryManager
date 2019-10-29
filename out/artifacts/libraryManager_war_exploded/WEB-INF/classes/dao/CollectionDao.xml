@@ -19,4 +19,10 @@
         WHERE book_id = #{bookId}
     </select>
 
+    <insert id="addCollection" parameterType="LibraryCollection">
+        INSERT INTO collection(book_id,collection_type,collection_search_id,collection_place,
+        collection_place_id,collection_state)
+        VALUES(#{bookId},#{type}, #{searchId}, #{placeName}, #{placeId}, #{state})
+    </insert>
+
 </mapper>
