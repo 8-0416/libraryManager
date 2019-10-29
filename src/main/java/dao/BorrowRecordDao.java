@@ -23,6 +23,12 @@ public interface BorrowRecordDao {
     // 根据学号（工号）查询借书总记录数
     Integer findTotalNumByUserId(String userId);
 
+    // 根据学号（工号）和图书id查询图书归还日期
+    String findReturnDateByUserIdAndBookId(@Param("userId") String userId, @Param("bookId") String bookId);
+
+    // 根据学号（工号）和图书id修改图书归还日期
+    Integer updateReturnDateByUserIdAndBookId(@Param("userId") String userId, @Param("bookId") String bookId, @Param("newDate") String newDate);
+
     void addBorrowRecord(BorrowRecord borrowRecord);
 
     List<BorrowRecord> findBorrowRecord();

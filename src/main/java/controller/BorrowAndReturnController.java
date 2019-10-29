@@ -103,10 +103,9 @@ public class BorrowAndReturnController {
 
             Integer flag = borrowAndReturnService.updateBorrowTimeByUserIdAndBookId(userId, bookId);
 
-            if (flag == 1) {
+            if (flag != null && flag == 1) {
                 return message.setCodeAndPrompt("1", "续借成功！");
             } else {
-
                 return message.setCodeAndPrompt("-1", "续借失败！");
             }
         } else {  // 续借过
