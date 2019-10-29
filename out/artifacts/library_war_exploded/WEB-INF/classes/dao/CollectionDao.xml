@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CollectionDao">
+
+    <resultMap id="collectionDetail" type="LibraryCollection">
+        <id property="bookId" column="book_id"/>
+        <result property="type" column="collection_type" />
+        <result property="searchId" column="collection_search_id"/>
+        <result property="placeName" column="collection_place"/>
+        <result property="placeId" column="collection_place_id" />
+        <result property="state" column="collection_state" />
+    </resultMap>
+
+    <select id="findCollectionByBookId" parameterType="String" resultMap="collectionDetail">
+        SELECT *
+        FROM collection
+        WHERE book_id = #{bookId}
+    </select>
+
+</mapper>

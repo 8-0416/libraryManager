@@ -23,4 +23,17 @@
         <property name="suffix" value=".html"/>
     </bean>
 
+    <!-- 配置拦截器 -->
+    <!--<<mvc:interceptors>
+        <mvc:interceptor>
+            &lt;!&ndash; 指定拦截的路径 &ndash;&gt;
+            <mvc:mapping path="/**/*.do"/>
+            &lt;!&ndash; 指定不拦截的路径 &ndash;&gt;
+            <mvc:exclude-mapping path="/**/login.do"/>
+            <mvc:exclude-mapping path="/**/register.do"/>
+            <mvc:exclude-mapping path="/**/changePassword.do"/>
+            &lt;!&ndash; 指定拦截器 &ndash;&gt;
+            <bean class="interceptor.TokenIntercptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
 </beans>
