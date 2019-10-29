@@ -5,11 +5,20 @@ package dto;
  * @date 2019/10/27 23:56
  */
 public class BorrowRecordDto {
+    private Integer bookId;
     private String bookName;
     private String borrowDate;
     private String returnDate;
     private Integer borrowTime;
     private Integer isReturn;
+
+    public Integer getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
+    }
 
     public String getBookName() {
         return bookName;

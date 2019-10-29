@@ -15,7 +15,7 @@
 
     <!-- 根据学号（工号）查询学生（老师）借书记录 -->
     <select id="findBorrowRecordByUserId" resultType="borrowRecordDto">
-        select b.book_name as bookName, br.borrow_date as borrowDate, br.return_date as returnDate, br.borrow_time as borrowTime, br.is_return as isReturn
+        select b.book_name as bookName, br.book_id as bookId, br.borrow_date as borrowDate, br.return_date as returnDate, br.borrow_time as borrowTime, br.is_return as isReturn
         from book b, borrow_record br
         where br.user_id = #{userId} and b.book_id = br.book_id
         order by returnDate
@@ -55,5 +55,21 @@
         FROM borrow_record
         WHERE is_return = 0;
     </select>
+
+    <!-- 根据学号（工号）和图书id查询图书归还日期 -->
+    <select id="findReturnDateByUserIdAndBookId" resultType="string">
+        SELECT return_date
+        FROM borrow_record
+        WHERE book_id = #{bookId}
+            AND user_id = #{userId}
+    </select>
+
+    <!-- 根据学号（工号）和图书id修改图书归还日期 -->
+    <update id="updateReturnDateByUserIdAndBookId">
+        UPDATE borrow_record
+        SET return_date = #{newDate}
+        WHERE book_id = #{bookId}
+            AND user_id = #{userId}
+    </update>
 </mapper>
 

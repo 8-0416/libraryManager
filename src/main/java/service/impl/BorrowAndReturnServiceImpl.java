@@ -8,7 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import po.BorrowRecord;
 import service.BorrowAndReturnService;
 
-import java.util.ArrayList;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -39,7 +43,12 @@ public class BorrowAndReturnServiceImpl implements BorrowAndReturnService {
 
     @Override
     public Integer updateBorrowTimeByUserIdAndBookId(String userId, String bookId) {
-        return borrowRecordDao.updateBorrowTimeByUserIdAndBookId(userId, bookId);
+        Integer flag1 = borrowRecordDao.updateBorrowTimeByUserIdAndBookId(userId, bookId);
+        Integer flag2 = updateReturnDateByUserIdAndBookId(userId, bookId);
+        if (flag1 != null && flag2 != null && flag1 == 1 && flag2 == 1) {
+            return flag1;
+        }
+        return null;
     }
 
     @Override
@@ -50,5 +59,27 @@ public class BorrowAndReturnServiceImpl implements BorrowAndReturnService {
     @Override
     public Integer findTotalNumByUserId(String userId) {
         return borrowRecordDao.findTotalNumByUserId(userId);
+    }
+
+    @Override
+    public Integer updateReturnDateByUserIdAndBookId(String userId, String bookId) {
+        // 查询日期
+        String oldDate = borrowRecordDao.findReturnDateByUserIdAndBookId(userId, bookId);
+        System.out.println("oldDate:  " + oldDate);
+        // 将日期增加一个月
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        ParsePosition pos = new ParsePosition(0);
+        Date date = sdf.parse(oldDate, pos);
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.MONTH, 1);
+        date = calendar.getTime();
+        String newDate = sdf.format(date);
+        System.out.println("newDate:  " + newDate);
+        // 修改日期
+        Integer flag = borrowRecordDao.updateReturnDateByUserIdAndBookId(userId, bookId, newDate);
+        if (flag != null && flag == 1)
+            return flag;
+        return null;
     }
 }

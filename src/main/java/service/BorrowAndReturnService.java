@@ -28,4 +28,7 @@ public interface BorrowAndReturnService {
 
     // 根据学号（工号）查询借书总记录数
     Integer findTotalNumByUserId(String userId);
+
+    // 根据学号（工号）和图书id修改图书归还日期
+    Integer updateReturnDateByUserIdAndBookId(String userId, String bookId);
 }
