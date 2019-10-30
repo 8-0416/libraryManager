@@ -7,8 +7,7 @@ package po;
 public class Page {
     private Integer pageNum;
     private Integer records;
-    private Integer startRecord;
-    private Integer endRecord;
+    private Integer startIndex;
 
     public Page() {
     }
@@ -34,12 +33,8 @@ public class Page {
         this.records = records;
     }
 
-    public Integer getStartRecord() {
+    public Integer getStartIndex() {
         return (pageNum - 1) * records;
-    }
-
-    public Integer getEndRecord() {
-        return pageNum*records;
     }
 
 }
