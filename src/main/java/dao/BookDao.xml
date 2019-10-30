@@ -15,6 +15,7 @@
         <result property="publisher" column="book_publisher" />
         <result property="bookPage" column="book_page"/>
         <result property="price" column="book_price"/>
+        <result property="bookPicture" column="book_picture"/>
     </resultMap>
 
     <resultMap id="bookDetailAndCollection" type="Book" >
@@ -27,6 +28,7 @@
         <result property="publisher" column="book_publisher" />
         <result property="bookPage" column="book_page"/>
         <result property="price" column="book_price"/>
+        <result property="bookPicture" column="book_picture"/>
         <association property="libraryCollection" column="book_id" javaType="LibraryCollection"
                      select="dao.CollectionDao.findCollectionByBookId" />
     </resultMap>
@@ -44,12 +46,13 @@
     </select>
 
     <insert id="entryBook" parameterType="Book" >
-        insert into book
-        values (#{bookId}, #{isbn}, #{bookName},#{author},#{bookPlace},#{publishDate},
+        insert into book(book_isbn, book_name,book_author,book_place,book_date,book_publisher,book_page,
+        book_price)
+        values (#{isbn}, #{bookName},#{author},#{bookPlace},#{publishDate},
         #{publisher},#{bookPage},#{price})
     </insert>
 
-    <select id="findBookByfield" resultMap="bookDetail" >
+    <select id="findBookByField" resultMap="bookDetail" >
         select *
         from book
         where ${arg0} like concat('%', #{arg1}, '%')
@@ -73,6 +76,24 @@
         select *
         from book
         where book_id = #{bookId}
+    </select>
+
+    <update id="entryImage">
+        UPDATE book
+        SET book_picture =  #{arg0}
+        WHERE book_isbn = #{arg1}
+    </update>
+
+    <select id="findBookByIsbn" parameterType="String" resultType="Integer">
+        SELECT book_id
+        FROM book
+        WHERE book_isbn = #{isbn}
+    </select>
+
+    <select id="findBookByRandom" resultMap="bookDetail">
+        SELECT book_id,book_name,book_picture
+        FROM book
+        ORDER BY RAND() LIMIT 8;
     </select>
 
 </mapper>

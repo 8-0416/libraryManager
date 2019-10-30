@@ -1,5 +1,9 @@
 package po;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+
 /**
  * @author 0416
  * @date 2019/10/1
@@ -15,6 +19,7 @@ public class Book {
     private float price;
     private String publishDate;
     private LibraryCollection libraryCollection;
+    private String bookPicture;
 
     public String getBookId() {
         return bookId;
@@ -94,5 +99,13 @@ public class Book {
 
     public void setLibraryCollection(LibraryCollection libraryCollection) {
         this.libraryCollection = libraryCollection;
+    }
+
+    public String getBookPicture() {
+        return bookPicture;
+    }
+
+    public void setBookPicture(String bookPicture) {
+        this.bookPicture = bookPicture;
     }
 }

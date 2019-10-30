@@ -23,6 +23,13 @@
         <property name="suffix" value=".html"/>
     </bean>
 
+    <!-- 上传图片配置实现类 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 上传图片的大小（单位：字节）-->
+        <property name="maxUploadSize" value="5000000" />
+    </bean>
+
     <!-- 配置拦截器 -->
     <mvc:interceptors>
         <mvc:interceptor>

@@ -15,7 +15,7 @@ public interface BookDao {
 
     List<Book> findBookByPageNum(Page page);
 
-    List<Book> findBookByfield(String field, String info);
+    List<Book> findBookByField(String field, String info);
 
     void entryBook(Book book);
 
@@ -24,4 +24,11 @@ public interface BookDao {
     void deleteBook(String bookId);
 
     List<Book> findBookDetail(String bookId);
+
+    void entryImage(String fileName, String bookIsbn);
+
+    Integer findBookByIsbn(String isbn);
+
+    List<Book> findBookByRandom();
+
 }

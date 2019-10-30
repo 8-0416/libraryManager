@@ -31,8 +31,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findBookByfield(String field, String info){
-        return this.bookDao.findBookByfield(field, info);
+    public List<Book> findBookByField(String field, String info){
+        return this.bookDao.findBookByField(field, info);
     }
 
     @Override
@@ -53,5 +53,20 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findBookDetail(String bookId) {
         return this.bookDao.findBookDetail(bookId);
+    }
+
+    @Override
+    public void entryImage(String fileName, String bookIsbn) {
+        bookDao.entryImage(fileName, bookIsbn);
+    }
+
+    @Override
+    public Integer findBookByIsbn(String isbn){
+        return bookDao.findBookByIsbn(isbn);
+    }
+
+    @Override
+    public List<Book> findBookByRandom(){
+        return bookDao.findBookByRandom();
     }
 }
