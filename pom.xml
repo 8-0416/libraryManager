@@ -114,6 +114,13 @@
             <version>5.1.4.RELEASE</version>
         </dependency>
 
+        <!-- 邮件发送 -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
 
         <!--mybatis-->
         <dependency>
@@ -173,6 +180,12 @@
             <version>2.9.8</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.58</version>
+        </dependency>
 
         <!-- 其他 -->
         <dependency>
