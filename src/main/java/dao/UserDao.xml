@@ -3,9 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.UserDao">
+
+    <!-- 根据userId查询用户 -->
     <select id="findUserByUserId" parameterType="string" resultType="user">
         SELECT user_id as userId, name, email, password, permissions
         FROM user
         WHERE user_id = #{userId}
     </select>
+
+    <!-- 添加用户 -->
+    <insert id="addUser" parameterType="registerDto">
+        INSERT INTO user (user_id, name, email, password, permissions)
+        VALUES (#{userId}, #{name}, #{email}, #{password}, #{permissions})
+    </insert>
 </mapper>

@@ -1,5 +1,6 @@
 package dao;
 
+import dto.RegisterDto;
 import po.User;
 
 /**
@@ -9,4 +10,7 @@ import po.User;
 public interface UserDao {
     // 根据userId查询用户
     User findUserByUserId(String userId);
+
+    // 添加用户
+    Integer addUser(RegisterDto registerDto);
 }
