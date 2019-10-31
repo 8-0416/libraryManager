@@ -11,6 +11,8 @@ import service.UserLoginService;
 import utils.JwtUtil;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author FHJ
@@ -24,29 +26,33 @@ public class UserLoginController {
 
     @RequestMapping("/userLogin.do")
     @ResponseBody
-    public Message userLogin(HttpServletResponse response, String userId, String password, Integer permissions){
+    public Message userLogin(HttpServletResponse response, String userId, String password, Integer permissions) {
         Message message = new Message();
-        if(userId == null || userId.equals("") || password == null || password.equals("") || permissions == null || !(permissions == 0 || permissions == 1)){
+        if (userId == null || userId.equals("") || password == null || password.equals("") || permissions == null || !(permissions == 0 || permissions == 1)) {
             return message.setCodeAndPrompt("-1", "必要数据为空或者数值不符合要求！");
         }
 
         // 根据userId查询用户
         User user = userLoginService.findUserByUserId(userId);
 
-        if(user == null){
+        if (user == null) {
             return message.setCodeAndPrompt("0", "没有此用户！");
         }
 
-        if(!user.getPassword().equals(password)){
+        if (!user.getPassword().equals(password)) {
             return message.setCodeAndPrompt("2", "用户名或密码错误！");
         }
 
-        if(user.getPermissions() != permissions){
+        if (user.getPermissions() != permissions) {
             return message.setCodeAndPrompt("3", "用户权限错误");
         }
 
         // 登录信息校验正确
-        response.addHeader("token", JwtUtil.sign(userId));
-        return message.setCodeAndPrompt("1", "用户登录成功！");
+        String token = JwtUtil.sign(userId);
+        message.setCodeAndPrompt("1", "用户登录成功！");
+        Map<String, String> map = new HashMap<>();
+        map.put("access_token", token);
+        message.setReturnData(map);
+        return message;
     }
 }

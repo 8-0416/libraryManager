@@ -1,5 +1,6 @@
 package interceptor;
 
+import com.alibaba.fastjson.JSONObject;
 import po.Message;
 import utils.JwtUtil;
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TokenInterceptor implements HandlerInterceptor {
     public static final Logger log = LoggerFactory.getLogger(TokenInterceptor.class);
@@ -20,38 +23,46 @@ public class TokenInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         response.setCharacterEncoding("utf-8");
         String token = request.getHeader("access_token");
-        Date date = new Date(System.currentTimeMillis());
-        //token不存在
+        Message message = new Message();
+        // token存在
         if (null != token) {
             //验证token是否正确
             boolean result = JwtUtil.verify(token);
+            Date date = new Date();
             if (result) {
+                Long tokenTime = JwtUtil.getExpiresAt(token).getTime();
                 // token过期
-                if(new Date().getTime() > JwtUtil.getExpiresAt(token).getTime()){
+                if (date.getTime() > tokenTime) {
                     // 过期超过半个月
-                    if (new Date().getTime() > (JwtUtil.getExpiresAt(token).getTime() + 15 * 24 * 60 * 60 * 1000)){
+                    if (date.getTime() > (tokenTime + 15 * 24 * 60 * 60 * 1000)) {
                         System.out.println("token过期超过半个月！");
-                        Message message = new Message();
-                        message.setCodeAndPrompt("-3", "token过期超过半个月，请重新登录！");
-                        responseMessage(response, message);
+                        message.setCodeAndPrompt("-30", "token过期超过半个月，请重新登录！");
+                        String jsonMessage = JSONObject.toJSONString(message);
+                        responseMessage(response, jsonMessage);
                         return false;
                     }
                     // 过期没超过半个月，生成新的token
-                    response.addHeader("access_token", JwtUtil.sign(JwtUtil.getUserId(token)));
-                    return true;
+                    String newToken = JwtUtil.sign(JwtUtil.getUserId(token));
+                    System.out.println("token过期，生成新的token！");
+                    message.setCodeAndPrompt("10", "token过期，生成新的token！");
+                    Map<String, String> map = new HashMap<>();
+                    map.put("access_token", newToken);
+                    String jsonMessage = JSONObject.toJSONString(message);
+                    responseMessage(response, jsonMessage);
+                    return false;
                 }
                 return true;
             } else {
                 System.out.println("token认证错误！");
-                Message message = new Message();
-                message.setCodeAndPrompt("-2", "token认证错误！");
-                responseMessage(response, message);
+                message.setCodeAndPrompt("-20", "token认证错误！");
+                String jsonMessage = JSONObject.toJSONString(message);
+                responseMessage(response, jsonMessage);
                 return false;
             }
         } else {
-            Message message = new Message();
-            message.setCodeAndPrompt("-1", "token为空，用户未登录！");
-            responseMessage(response, message);
+            message.setCodeAndPrompt("-10", "token为空，用户未登录！");
+            String jsonMessage = JSONObject.toJSONString(message);
+            responseMessage(response, jsonMessage);
             return false;
         }
     }
@@ -72,7 +83,7 @@ public class TokenInterceptor implements HandlerInterceptor {
      * @param response
      * @param message
      */
-    private void responseMessage(HttpServletResponse response, Message message) {
+    private void responseMessage(HttpServletResponse response, String message) {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
 
@@ -80,12 +91,11 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         try {
             writer = response.getWriter();
-            writer.println(message);
+            writer.print(message);
         } catch (IOException e) {
-            log.error(message.getPrompt());
             e.printStackTrace();
         } finally {
-            if (writer != null){
+            if (writer != null) {
                 writer.flush();
                 writer.close();
             }
