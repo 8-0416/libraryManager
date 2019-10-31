@@ -33,6 +33,7 @@ public interface BorrowRecordDao {
 
     List<BorrowRecord> findBorrowRecord();
 
-    //TODO
-    //void renewBook();
+    void returnBook(String userId, String bookId);
+
+    Integer findBorrowRecordByUserIdAndBookId(String userId, String bookId);
 }

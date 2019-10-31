@@ -82,4 +82,14 @@ public class BorrowAndReturnServiceImpl implements BorrowAndReturnService {
             return flag;
         return null;
     }
+
+    @Override
+    public void returnBook(String userId, String bookId) {
+        borrowRecordDao.returnBook(userId, bookId);
+    }
+
+    @Override
+    public Integer findBorrowRecordByUserIdAndBookId(String userId, String bookId) {
+        return borrowRecordDao.findBorrowRecordByUserIdAndBookId(userId, bookId);
+    }
 }

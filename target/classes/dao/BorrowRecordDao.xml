@@ -71,5 +71,17 @@
         WHERE book_id = #{bookId}
             AND user_id = #{userId}
     </update>
+
+    <delete id="returnBook" >
+        DELETE
+        FROM borrow_record
+        WHERE use_id = #{arg0} AND book_id = #{arg1}
+    </delete>
+
+    <select id="findBorrowRecordByUserIdAndBookId" resultType="Integer">
+        SELECT COUNT(*)
+        FROM borrow_record
+        WHERE user_id = #{arg0} AND book_id = #{arg1}
+    </select>
 </mapper>
 

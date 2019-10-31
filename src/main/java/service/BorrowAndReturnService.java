@@ -31,4 +31,8 @@ public interface BorrowAndReturnService {
 
     // 根据学号（工号）和图书id修改图书归还日期
     Integer updateReturnDateByUserIdAndBookId(String userId, String bookId);
+
+    void returnBook(String userId, String bookId);
+
+    Integer findBorrowRecordByUserIdAndBookId(String userId, String bookId);
 }

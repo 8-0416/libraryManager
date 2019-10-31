@@ -113,4 +113,21 @@ public class BorrowAndReturnController {
         }
     }
 
+    @RequestMapping("/returnBook.do")
+    @ResponseBody
+    public Message returnBook(String userId, String bookId){
+        Message message = new Message();
+        Integer count = borrowAndReturnService.findBorrowRecordByUserIdAndBookId(userId, bookId);
+        if(count == 0){
+            return message.setCodeAndPrompt("-1", "该用户没有借过此书或已归还");
+        }
+        try{
+            borrowAndReturnService.returnBook(userId, bookId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return message.fail();
+        }
+        return message.success("归还成功");
+    }
+
 }
