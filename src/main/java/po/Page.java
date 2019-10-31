@@ -37,4 +37,7 @@ public class Page {
         return (pageNum - 1) * records;
     }
 
+    public void setStartIndex(Integer startIndex) {
+        this.startIndex = startIndex;
+    }
 }
