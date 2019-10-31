@@ -8,4 +8,10 @@
         FROM user
         WHERE user_id = #{userId}
     </select>
+
+    <insert id="addAdministrator" parameterType="user">
+       INSERT INTO user(user_id, name, password, permissions)
+       VALUES (#{userId}, #{name}, #{password}, #{permissions})
+    </insert>
+
 </mapper>

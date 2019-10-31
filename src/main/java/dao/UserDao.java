@@ -9,4 +9,6 @@ import po.User;
 public interface UserDao {
     // 根据userId查询用户
     User findUserByUserId(String userId);
+
+    void addAdministrator(User user);
 }

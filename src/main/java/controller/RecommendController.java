@@ -62,13 +62,19 @@ public class RecommendController {
     @ResponseBody
     public Message findRecommendBookNotRead(){
         Message message = new Message();
-        List<RecommendBuy> book = new ArrayList();
+        List<RecommendBuy> book;
+
         try{
             book = recommendBuyService.findRecommendBookNotRead();
         }catch (Exception e){
             e.printStackTrace();
             return message.fail();
         }
+
+        if(book.isEmpty()){
+            return message.setCodeAndPrompt("0", "暂无推荐……");
+        }
+
         Map<String, List> map = new HashMap<>();
         map.put("listBook", book);
         message.setReturnData(map);

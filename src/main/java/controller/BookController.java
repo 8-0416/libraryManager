@@ -8,7 +8,7 @@ import po.Book;
 import po.Message;
 import po.Page;
 import service.BookService;
-import util.UploadImageUtil;
+import utils.UploadImageUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,11 +24,11 @@ public class BookController {
     @Autowired
     private BookService bookService;
     private final int RECORD_OF_ONE_PAGE = 10;
-    private final String DEFAULT_PICTURE = "c:\\image\\default.jpg";
+    private final String DEFAULT_PICTURE = "image\\default.jpg";
 
     @RequestMapping("/findBookByPageNum.do")
     @ResponseBody
-    public Message findBookBypageNum(Integer pageNum){
+    public Message findBookByPageNum(Integer pageNum){
         Page page = new Page(pageNum, RECORD_OF_ONE_PAGE);
         Message message = new Message();
         List<Book> book;
@@ -47,9 +47,9 @@ public class BookController {
         return message.success();
     }
 
-    @RequestMapping(value="/findBookByfield.do")
+    @RequestMapping(value="/findBookByField.do")
     @ResponseBody
-    public Message findBookByfield(String field, String info){
+    public Message findBookByField(String field, String info){
         List<Book> book ;
         Message message = new Message();
         try{
@@ -59,7 +59,7 @@ public class BookController {
             return message.fail();
         }
         if(book.isEmpty()){
-            return message.success("查询不到符合条件的数据!");
+            return message.setCodeAndPrompt("0", "查询不到符合条件的数据!");
         }
         Map<String, List> map = new HashMap<>();
         map.put("listBook", book);
@@ -107,21 +107,25 @@ public class BookController {
     public Message updateBookInfo(@RequestBody Book book){
         Message message = new Message();
         Book newBook;
+
         try{
             newBook = bookService.findBookById(book.getBookId());
-            if(newBook == null){
-                return message.fail("此书不存在");
-            }
         }catch (Exception e){
             e.printStackTrace();
             return message.fail();
         }
+
+        if(newBook == null){
+            return message.fail("此书不存在");
+        }
+
         try{
             bookService.updateBookInfo(book);
         }catch (Exception e){
             e.printStackTrace();
             return message.fail();
         }
+
         return message.success();
     }
 
@@ -143,7 +147,7 @@ public class BookController {
             e.printStackTrace();
             return message.fail();
         }
-        return message.success();
+        return message.success("删除成功");
     }
 
     @RequestMapping("/findBookDetail.do")

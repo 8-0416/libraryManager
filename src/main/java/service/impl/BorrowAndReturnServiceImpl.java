@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import po.BorrowRecord;
+import po.Page;
 import service.BorrowAndReturnService;
 
 import java.text.ParsePosition;
@@ -32,8 +33,8 @@ public class BorrowAndReturnServiceImpl implements BorrowAndReturnService {
     }
 
     @Override
-    public List<BorrowRecord> findBorrowRecord() {
-        return borrowRecordDao.findBorrowRecord();
+    public List<BorrowRecord> findBorrowRecord(Page page) {
+        return borrowRecordDao.findBorrowRecord(page);
     }
 
     @Override
@@ -81,5 +82,15 @@ public class BorrowAndReturnServiceImpl implements BorrowAndReturnService {
         if (flag != null && flag == 1)
             return flag;
         return null;
+    }
+
+    @Override
+    public void returnBook(String userId, String bookId) {
+        borrowRecordDao.returnBook(userId, bookId);
+    }
+
+    @Override
+    public Integer findBorrowRecordByUserIdAndBookId(String userId, String bookId) {
+        return borrowRecordDao.findBorrowRecordByUserIdAndBookId(userId, bookId);
     }
 }
