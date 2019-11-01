@@ -1,0 +1,21 @@
+package utils;
+
+import java.util.UUID;
+
+/**
+ * @author 0416
+ * @date 2019/11/1
+ **/
+public class UUIDUtil {
+    public static String getUUID() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    /**
+     * 获取六位随机验证码
+     * @return
+     */
+    public static int getVerifyCode(){
+        return (int)(Math.random()*(999999-100000+1)+100000);
+    }
+}
