@@ -21,12 +21,10 @@ public class SendMessageUtil {
         try{
             tmpSmsContent = URLEncoder.encode(smsContent, "UTF-8");
         }catch(Exception e){
-
         }
         String url = Config.BASE_URL;
         String body = "accountSid=" + accountSid + "&to=" + mobile + "&smsContent=" + tmpSmsContent
                 + HttpUtil.createCommonParam();
-
         // 提交请求
         String result = HttpUtil.post(url, body);
         System.out.println("result:" + System.lineSeparator() + result);
@@ -42,8 +40,8 @@ public class SendMessageUtil {
         sb.append("&to").append("=").append(mobile);
         sb.append("&param").append("=").append(URLEncoder.encode("","UTF-8"));
         /*sb.append("&templateid").append("=").append("238757");*/
-		sb.append("&smsContent").append("=").append( URLEncoder.encode(
-		        "【广东金融学院图书馆】尊敬的用户，您的短信验证码为" + UUIDUtil.getVerifyCode() +
+        sb.append("&smsContent").append("=").append( URLEncoder.encode(
+                "【广东金融学院图书馆】尊敬的用户，您的短信验证码为" + UUIDUtil.getVerifyCode() +
                         "，2分钟内有效，若非本人操作请忽略。","UTF-8"));
         String body = sb.toString() + HttpUtil.createCommonParam(Config.ACCOUNT_SID, Config.AUTH_TOKEN);
         String result = HttpUtil.post(Config.BASE_URL, body);
