@@ -26,7 +26,7 @@ public class UserLoginController {
 
     @RequestMapping("/userLogin.do")
     @ResponseBody
-    public Message userLogin(HttpServletResponse response, String userId, String password, Integer permissions) {
+    public Message userLogin(String userId, String password, Integer permissions) {
         Message message = new Message();
         if (userId == null || userId.equals("") || password == null || password.equals("") || permissions == null || !(permissions == 0 || permissions == 1)) {
             return message.setCodeAndPrompt("-1", "必要数据为空或者数值不符合要求！");
@@ -50,8 +50,9 @@ public class UserLoginController {
         // 登录信息校验正确
         String token = JwtUtil.sign(userId);
         message.setCodeAndPrompt("1", "用户登录成功！");
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("access_token", token);
+        map.put("user", user);
         message.setReturnData(map);
         return message;
     }

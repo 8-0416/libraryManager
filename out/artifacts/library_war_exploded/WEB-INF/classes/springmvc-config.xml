@@ -26,22 +26,22 @@
     <!-- 上传图片配置实现类 -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- 上传图片的大小（单位：字节）20M-->
-        <property name="maxUploadSize" value="20971520" />
+        <!-- 上传图片的大小（单位：字节）-->
+        <property name="maxUploadSize" value="5000000" />
     </bean>
 
-     <!--配置拦截器-->
-<!--    <mvc:interceptors>
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
         <mvc:interceptor>
-            &lt;!&ndash; 指定拦截的路径 &ndash;&gt;
+            <!-- 指定拦截的路径 -->
             <mvc:mapping path="/**/*.do"/>
-            &lt;!&ndash; 指定不拦截的路径 &ndash;&gt;
+            <!-- 指定不拦截的路径 -->
             <mvc:exclude-mapping path="/**/userLogin.do"/>
             <mvc:exclude-mapping path="/**/userRegister.do"/>
             <mvc:exclude-mapping path="/**/sendMail.do"/>
             <mvc:exclude-mapping path="/**/changePassword.do"/>
-            &lt;!&ndash; 指定拦截器 &ndash;&gt;
+            <!-- 指定拦截器 -->
             <bean class="interceptor.TokenInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
 </beans>

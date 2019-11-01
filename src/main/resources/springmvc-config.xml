@@ -37,7 +37,8 @@
             <mvc:mapping path="/**/*.do"/>
             &lt;!&ndash; 指定不拦截的路径 &ndash;&gt;
             <mvc:exclude-mapping path="/**/userLogin.do"/>
-            <mvc:exclude-mapping path="/**/register.do"/>
+            <mvc:exclude-mapping path="/**/userRegister.do"/>
+            <mvc:exclude-mapping path="/**/sendMail.do"/>
             <mvc:exclude-mapping path="/**/changePassword.do"/>
             &lt;!&ndash; 指定拦截器 &ndash;&gt;
             <bean class="interceptor.TokenInterceptor"/>
