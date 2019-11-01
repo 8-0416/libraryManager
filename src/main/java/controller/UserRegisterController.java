@@ -54,7 +54,7 @@ public class UserRegisterController {
         if(permissions == 0){
             User user1 = userRegisterService.findUserByPhone(phone);
             if (user1 != null){
-                message.setCodeAndPrompt("-5", "邮箱已被注册!");
+                message.setCodeAndPrompt("-5", "手机号已被注册!");
                 return message;
             }
         }

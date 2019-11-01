@@ -9,6 +9,7 @@ import po.Message;
 import po.User;
 import service.UserLoginService;
 import utils.JwtUtil;
+import utils.MD5Util;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class UserLoginController {
             return message.setCodeAndPrompt("0", "没有此用户！");
         }
 
-        if (!user.getPassword().equals(password)) {
+        if (!user.getPassword().equals(MD5Util.encryption(password))) {
             return message.setCodeAndPrompt("2", "用户名或密码错误！");
         }
 

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import po.User;
 import service.ChangePasswordService;
+import utils.MD5Util;
 
 /**
  * @author FHJ
@@ -18,7 +19,7 @@ public class ChangePasswordServiceImpl implements ChangePasswordService {
 
     @Override
     public Integer updatePasswordByPhone(String phone, String password) {
-        return userDao.updatePasswordByPhone(phone, password);
+        return userDao.updatePasswordByPhone(phone, MD5Util.encryption(password));
     }
 
     @Override
