@@ -34,14 +34,14 @@ public class ChangePasswordController {
             return message.setCodeAndPrompt("-2", "两次密码不一致！");
         }
 
-        // 根据邮箱查看是否有此用户存在
+        // 根据手机号查看是否有此用户存在
         User user = changePasswordService.findUserByPhone(phone);
 
         if (user == null) {
             return message.setCodeAndPrompt("0", "用户不存在！");
         }
 
-        // 根据邮箱修改密码
+        // 根据手机号修改密码
         Integer flag = changePasswordService.updatePasswordByPhone(phone, password);
 
         if (flag == 1) {

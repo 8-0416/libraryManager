@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import po.User;
 import service.UserRegisterService;
+import utils.MD5Util;
 
 /**
  * @author FHJ
@@ -19,6 +20,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
 
     @Override
     public Integer addUser(RegisterDto registerDto) {
+        registerDto.setPassword(MD5Util.encryption(registerDto.getPassword()));
         return userDao.addUser(registerDto);
     }
 
