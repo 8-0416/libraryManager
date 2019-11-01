@@ -18,8 +18,8 @@ public class CollectionServiceImpl implements CollectionService {
     CollectionDao collectionDao;
 
     @Override
-    public LibraryCollection findCollectionByBookId(Integer integer) {
-        return collectionDao.findCollectionByBookId(integer);
+    public LibraryCollection findCollectionByBookId(String bookId) {
+        return collectionDao.findCollectionByBookId(bookId);
     }
 
     @Override

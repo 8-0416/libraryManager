@@ -26,8 +26,8 @@
     <!-- 上传图片配置实现类 -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- 上传图片的大小（单位：字节）-->
-        <property name="maxUploadSize" value="5000000" />
+        <!-- 上传图片的大小（单位：字节）20M-->
+        <property name="maxUploadSize" value="20971520" />
     </bean>
 
     <!-- 配置拦截器 -->

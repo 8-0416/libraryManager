@@ -108,10 +108,6 @@ public class BookController {
     public Message entryImage(MultipartFile bookPicture, String bookIsbn){
         Message message = new Message();
 
-        if(bookPicture.isEmpty()){
-            return message.setCodeAndPrompt("-1", "请选择图片");
-        }
-
         try{
             String fileName = new UploadImageUtil().upload(bookPicture);
             bookService.entryImage(fileName, bookIsbn);
