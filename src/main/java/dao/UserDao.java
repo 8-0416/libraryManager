@@ -1,6 +1,7 @@
 package dao;
 
 import dto.RegisterDto;
+import org.apache.ibatis.annotations.Param;
 import po.User;
 
 /**
@@ -13,4 +14,10 @@ public interface UserDao {
 
     // 添加用户
     Integer addUser(RegisterDto registerDto);
+
+    // 根据邮箱查询用户
+    User findUserByEmail(String email);
+
+    // 根据邮箱修改密码
+    Integer updatePasswordByEmail(@Param("email") String email, @Param("password") String password);
 }

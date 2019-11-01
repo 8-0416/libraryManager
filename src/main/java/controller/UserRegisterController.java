@@ -51,6 +51,14 @@ public class UserRegisterController {
             return message;
         }
 
+        if(permissions == 0){
+            User user1 = userRegisterService.findUserByEmail(email);
+            if (user1 != null){
+                message.setCodeAndPrompt("-5", "邮箱已被注册!");
+                return message;
+            }
+        }
+
         if(!password.equals(confirmPassword)){
             message.setCodeAndPrompt("-4", "密码不一致!");
             return message;

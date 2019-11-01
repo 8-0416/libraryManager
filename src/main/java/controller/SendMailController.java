@@ -47,11 +47,11 @@ public class SendMailController {
             return message;
         } catch (IOException e) {
             message.setCodeAndPrompt("-1", "验证码发送失败!");
-            e.printStackTrace();
+            // e.printStackTrace();
             return message;
         } catch (MessagingException e) {
             message.setCodeAndPrompt("-1", "验证码发送失败!");
-            e.printStackTrace();
+            // e.printStackTrace();
             return message;
         }
     }

@@ -16,4 +16,18 @@
         INSERT INTO user (user_id, name, email, password, permissions)
         VALUES (#{userId}, #{name}, #{email}, #{password}, #{permissions})
     </insert>
+
+    <!-- 根据邮箱查询用户 -->
+    <select id="findUserByEmail" parameterType="string" resultType="user">
+        SELECT user_id as userId, name, email, password, permissions
+        FROM user
+        WHERE email = #{email}
+    </select>
+
+    <!-- 根据邮箱修改用户密码 -->
+    <update id="updatePasswordByEmail">
+        UPDATE user
+        SET password = #{password}
+        WHERE email = #{email}
+    </update>
 </mapper>
