@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import po.BorrowRecord;
-import po.Message;
+import po.*;
+import service.BookService;
 import service.BorrowAndReturnService;
+import service.UserLoginService;
 
 import javax.swing.text.MaskFormatter;
 import java.util.ArrayList;
@@ -27,11 +28,33 @@ public class BorrowAndReturnController {
 
     @Autowired
     BorrowAndReturnService borrowAndReturnService;
+    @Autowired
+    UserLoginService userLoginService;
+    @Autowired
+    BookService bookService;
+    private final int RECORD_OF_ONE_PAGE = 10;
 
     @RequestMapping("/addBorrowRecord.do")
     @ResponseBody
     public Message addBorrowRecord(BorrowRecord borrowRecord) {
         Message message = new Message();
+
+        String userId = borrowRecord.getUserId();
+        User user = userLoginService.findUserByUserId(userId);
+        if(user == null){
+            return message.setCodeAndPrompt("-1", "该用户不存在");
+        }
+
+        String bookId = borrowRecord.getBookId();
+        Book book = bookService.findBookById(bookId);
+        if(book == null){
+            return message.setCodeAndPrompt("-1", "该书籍不存在");
+        }
+
+        Integer count = borrowAndReturnService.findBorrowRecordByUserIdAndBookId(userId, bookId);
+        if(count != 0){
+            return message.setCodeAndPrompt("1", "该记录已存在");
+        }
         try {
             borrowAndReturnService.addBorrowRecord(borrowRecord);
         } catch (Exception e) {
@@ -43,11 +66,12 @@ public class BorrowAndReturnController {
 
     @RequestMapping("/findBorrowRecord.do")
     @ResponseBody
-    public Message findBorrowRecord() {
+    public Message findBorrowRecord(Integer pageNum) {
         Message message = new Message();
+        Page page = new Page(pageNum, RECORD_OF_ONE_PAGE);
         List<BorrowRecord> borrowRecords;
         try {
-            borrowRecords = borrowAndReturnService.findBorrowRecord();
+            borrowRecords = borrowAndReturnService.findBorrowRecord(page);
         } catch (Exception e) {
             e.printStackTrace();
             return message.fail();
@@ -113,4 +137,32 @@ public class BorrowAndReturnController {
         }
     }
 
+    @RequestMapping("/returnBook.do")
+    @ResponseBody
+    public Message returnBook(String userId, String bookId){
+        Message message = new Message();
+
+        User user = userLoginService.findUserByUserId(userId);
+        if(user == null){
+            return message.setCodeAndPrompt("-1", "该用户不存在");
+        }
+
+        Book book = bookService.findBookById(bookId);
+        if(book == null){
+            return message.setCodeAndPrompt("-1", "该书籍不存在");
+        }
+
+        Integer count = borrowAndReturnService.findBorrowRecordByUserIdAndBookId(userId, bookId);
+        if(count == 0){
+            return message.setCodeAndPrompt("0", "该用户没有借阅此书或已归还");
+        }
+
+        try {
+            borrowAndReturnService.returnBook(userId, bookId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return message.fail();
+        }
+        return message.setCodeAndPrompt("1", "归还成功");
+    }
 }

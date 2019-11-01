@@ -8,7 +8,7 @@ import po.LibraryCollection;
  **/
 public interface CollectionDao {
 
-    LibraryCollection findCollectionByBookId(Integer integer);
+    LibraryCollection findCollectionByBookId(String bookId);
 
     void addCollection(LibraryCollection collection);
 }

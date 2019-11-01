@@ -3,6 +3,7 @@ package dao;
 import dto.BorrowRecordDto;
 import org.apache.ibatis.annotations.Param;
 import po.BorrowRecord;
+import po.Page;
 
 import java.util.List;
 
@@ -31,8 +32,9 @@ public interface BorrowRecordDao {
 
     void addBorrowRecord(BorrowRecord borrowRecord);
 
-    List<BorrowRecord> findBorrowRecord();
+    List<BorrowRecord> findBorrowRecord(Page page);
 
-    //TODO
-    //void renewBook();
+    void returnBook(String userId, String bookId);
+
+    Integer findBorrowRecordByUserIdAndBookId(String userId, String bookId);
 }

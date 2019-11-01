@@ -8,7 +8,7 @@ import po.Book;
 import po.Message;
 import po.Page;
 import service.BookService;
-import util.UploadImageUtil;
+import utils.UploadImageUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,11 +24,11 @@ public class BookController {
     @Autowired
     private BookService bookService;
     private final int RECORD_OF_ONE_PAGE = 10;
-    private final String DEFAULT_PICTURE = "c:\\image\\default.jpg";
+    private final String DEFAULT_PICTURE = "image\\default.jpg";
 
     @RequestMapping("/findBookByPageNum.do")
     @ResponseBody
-    public Message findBookBypageNum(Integer pageNum){
+    public Message findBookByPageNum(Integer pageNum){
         Page page = new Page(pageNum, RECORD_OF_ONE_PAGE);
         Message message = new Message();
         List<Book> book;
@@ -47,9 +47,9 @@ public class BookController {
         return message.success();
     }
 
-    @RequestMapping(value="/findBookByfield.do")
+    @RequestMapping(value="/findBookByField.do")
     @ResponseBody
-    public Message findBookByfield(String field, String info){
+    public Message findBookByField(String field, String info){
         List<Book> book ;
         Message message = new Message();
         try{
@@ -59,8 +59,15 @@ public class BookController {
             return message.fail();
         }
         if(book.isEmpty()){
-            return message.success("查询不到符合条件的数据!");
+            return message.setCodeAndPrompt("0", "查询不到符合条件的数据!");
         }
+
+        for(Book temp : book){
+            if(temp.getBookPicture() == null){
+                temp.setBookPicture(DEFAULT_PICTURE);
+            }
+        }
+
         Map<String, List> map = new HashMap<>();
         map.put("listBook", book);
         message.setReturnData(map);
@@ -71,17 +78,32 @@ public class BookController {
     @ResponseBody
     public Message entryBook(@RequestBody Book book){
         Message message = new Message();
-        Integer bookId = bookService.findBookByIsbn(book.getIsbn());
+
+        String isbn = book.getIsbn();
+        String name = book.getBookName();
+        String author = book.getAuthor();
+        String bookPage = book.getBookPage();
+        String publisher = book.getPublisher();
+        if(isbn == null || "".equals(isbn) || name == null || "".equals(name) || author == null
+                || "".equals(author) || bookPage == null || "".equals(bookPage) || publisher == null
+                || "".equals(publisher)){
+            return message.setCodeAndPrompt("-1", "isbn、书籍名称、作者、出版社、页数" +
+                    "均不能为空");
+        }
+
+        Integer bookId = bookService.findBookByIsbn(isbn);
         if(bookId != null && bookId != 0 ){
             return message.fail("该isbn已存在，请重新输入！");
         }
+
         try{
             bookService.entryBook(book);
         }catch (Exception e){
             e.printStackTrace();
             return message.fail("添加失败！");
         }
-        bookId = bookService.findBookByIsbn(book.getIsbn());
+
+        bookId = bookService.findBookByIsbn(isbn);
         Map<String, Integer> map = new HashMap<>();
         map.put("bookId", bookId);
         message.setReturnData(map);
@@ -92,6 +114,7 @@ public class BookController {
     @ResponseBody
     public Message entryImage(MultipartFile bookPicture, String bookIsbn){
         Message message = new Message();
+
         try{
             String fileName = new UploadImageUtil().upload(bookPicture);
             bookService.entryImage(fileName, bookIsbn);
@@ -99,6 +122,7 @@ public class BookController {
             e.printStackTrace();
             return message.fail("图片上传失败！");
         }
+
         return message.success("上传成功！");
     }
 
@@ -107,21 +131,25 @@ public class BookController {
     public Message updateBookInfo(@RequestBody Book book){
         Message message = new Message();
         Book newBook;
+
         try{
             newBook = bookService.findBookById(book.getBookId());
-            if(newBook == null){
-                return message.fail("此书不存在");
-            }
         }catch (Exception e){
             e.printStackTrace();
             return message.fail();
         }
+
+        if(newBook == null){
+            return message.fail("此书不存在");
+        }
+
         try{
             bookService.updateBookInfo(book);
         }catch (Exception e){
             e.printStackTrace();
             return message.fail();
         }
+
         return message.success();
     }
 
@@ -143,7 +171,7 @@ public class BookController {
             e.printStackTrace();
             return message.fail();
         }
-        return message.success();
+        return message.success("删除成功");
     }
 
     @RequestMapping("/findBookDetail.do")
@@ -159,6 +187,11 @@ public class BookController {
         }
         if(books.isEmpty()){
             return message.fail("此书不存在");
+        }
+        for(Book book : books){
+            if(book.getBookPicture() == null){
+                book.setBookPicture(DEFAULT_PICTURE);
+            }
         }
         Map<String, List> map = new HashMap<>();
         map.put("listBook", books);

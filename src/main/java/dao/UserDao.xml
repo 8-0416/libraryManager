@@ -30,4 +30,5 @@
         SET password = #{password}
         WHERE email = #{email}
     </update>
+
 </mapper>

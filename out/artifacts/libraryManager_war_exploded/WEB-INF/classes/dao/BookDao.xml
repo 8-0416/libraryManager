@@ -40,9 +40,9 @@
     </select>
 
     <select id="findBookByPageNum" parameterType="po.Page" resultMap="bookDetail">
-        select *
-        from book
-        limit #{startRecord}, #{endRecord}
+        SELECT *
+        FROM book
+        LIMIT #{startIndex}, #{records}
     </select>
 
     <insert id="entryBook" parameterType="Book" >
@@ -93,7 +93,7 @@
     <select id="findBookByRandom" resultMap="bookDetail">
         SELECT book_id,book_name,book_picture
         FROM book
-        ORDER BY RAND() LIMIT 8;
+        ORDER BY RAND() LIMIT 16;
     </select>
 
 </mapper>

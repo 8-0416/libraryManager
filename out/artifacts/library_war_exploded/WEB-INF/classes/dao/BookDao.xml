@@ -42,7 +42,7 @@
     <select id="findBookByPageNum" parameterType="po.Page" resultMap="bookDetail">
         select *
         from book
-        limit #{startIndex}, #{records}
+        limit #{startRecord}, #{endRecord}
     </select>
 
     <insert id="entryBook" parameterType="Book" >
