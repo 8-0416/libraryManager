@@ -25,11 +25,40 @@ public class CollectionController {
     @ResponseBody
     public Message addCollection(@RequestBody LibraryCollection collection){
         Message message = new Message();
+
+        String bookId = collection.getBookId();
+        if(bookId == null || "".equals(bookId)){
+            return message.setCodeAndPrompt("-1", "此书不存在");
+        }
+
+        LibraryCollection libraryCollection = null;
+        try{
+            Integer id = Integer.parseInt(bookId);
+            libraryCollection = collectionService.findCollectionByBookId(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return message.fail();
+        }
+        if(libraryCollection != null){
+            return message.setCodeAndPrompt("1", "该书籍的馆藏信息已存在");
+        }
+
+        String type = collection.getType();
+        String searchId = collection.getSearchId();
+        String place = collection.getPlaceName();
+        String placeId = collection.getPlaceId();
+        String state = collection.getState();
+        if(type == null || "".equals(type) || searchId == null || "".equals(searchId) || place == null ||
+        "".equals(place) || placeId == null || "".equals(placeId) || state == null || "".equals(state)){
+            return message.setCodeAndPrompt("-1", "图书类别、索引书号、书库名称、" +
+                    "书库位置编号、馆藏信息均不能为空");
+        }
+
         try{
             collectionService.addCollection(collection);
         }catch (Exception e){
             e.printStackTrace();
-            return message.fail();
+            return message.fail("添加失败");
         }
         return message.success();
     }

@@ -71,17 +71,32 @@ public class BookController {
     @ResponseBody
     public Message entryBook(@RequestBody Book book){
         Message message = new Message();
-        Integer bookId = bookService.findBookByIsbn(book.getIsbn());
+
+        String isbn = book.getIsbn();
+        String name = book.getBookName();
+        String author = book.getAuthor();
+        String bookPage = book.getBookPage();
+        String publisher = book.getPublisher();
+        if(isbn == null || "".equals(isbn) || name == null || "".equals(name) || author == null
+                || "".equals(author) || bookPage == null || "".equals(bookPage) || publisher == null
+                || "".equals(publisher)){
+            return message.setCodeAndPrompt("-1", "isbn、书籍名称、作者、出版社、页数" +
+                    "均不能为空");
+        }
+
+        Integer bookId = bookService.findBookByIsbn(isbn);
         if(bookId != null && bookId != 0 ){
             return message.fail("该isbn已存在，请重新输入！");
         }
+
         try{
             bookService.entryBook(book);
         }catch (Exception e){
             e.printStackTrace();
             return message.fail("添加失败！");
         }
-        bookId = bookService.findBookByIsbn(book.getIsbn());
+
+        bookId = bookService.findBookByIsbn(isbn);
         Map<String, Integer> map = new HashMap<>();
         map.put("bookId", bookId);
         message.setReturnData(map);
@@ -92,6 +107,11 @@ public class BookController {
     @ResponseBody
     public Message entryImage(MultipartFile bookPicture, String bookIsbn){
         Message message = new Message();
+
+        if(bookPicture.isEmpty()){
+            return message.setCodeAndPrompt("-1", "请选择图片");
+        }
+
         try{
             String fileName = new UploadImageUtil().upload(bookPicture);
             bookService.entryImage(fileName, bookIsbn);
@@ -99,6 +119,7 @@ public class BookController {
             e.printStackTrace();
             return message.fail("图片上传失败！");
         }
+
         return message.success("上传成功！");
     }
 

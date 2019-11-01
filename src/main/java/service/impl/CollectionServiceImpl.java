@@ -18,6 +18,11 @@ public class CollectionServiceImpl implements CollectionService {
     CollectionDao collectionDao;
 
     @Override
+    public LibraryCollection findCollectionByBookId(Integer integer) {
+        return collectionDao.findCollectionByBookId(integer);
+    }
+
+    @Override
     public void addCollection(LibraryCollection collection) {
         collectionDao.addCollection(collection);
     }

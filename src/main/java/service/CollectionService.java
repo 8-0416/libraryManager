@@ -8,5 +8,7 @@ import po.LibraryCollection;
  **/
 public interface CollectionService {
 
+    LibraryCollection findCollectionByBookId(Integer integer);
+
     void addCollection(LibraryCollection collection);
 }
