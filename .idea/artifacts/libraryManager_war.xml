@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="libraryManager:war">
-    <output-path>D:/</output-path>
-    <root id="archive" name="libraryManager_war.war">
-      <element id="artifact" artifact-name="libraryManager:war exploded" />
-    </root>
-  </artifact>
-</component>

@@ -43,7 +43,7 @@ public class UserLoginController {
             return message.setCodeAndPrompt("2", "用户名或密码错误！");
         }
 
-        if (user.getPermissions().equals(permissions)) {
+        if (!user.getPermissions().equals(permissions)) {
             return message.setCodeAndPrompt("3", "用户权限错误");
         }
 
