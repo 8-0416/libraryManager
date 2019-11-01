@@ -9,8 +9,8 @@ import po.User;
 public interface ChangePasswordService {
 
     // 根据邮箱修改密码
-    Integer updatePasswordByEmail(String email, String password);
+    Integer updatePasswordByPhone(String phone, String password);
 
     // 根据邮箱查询用户
-    User findUserByEmail(String email);
+    User findUserByPhone(String phone);
 }

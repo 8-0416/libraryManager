@@ -28,7 +28,7 @@ public class UserRegisterController {
 
         String userId = registerDto.getUserId();
         String name = registerDto.getName();
-        String email = registerDto.getEmail();
+        String phone = registerDto.getPhone();
         String password = registerDto.getPassword();
         String confirmPassword = registerDto.getConfirmPassword();
         Integer permissions = registerDto.getPermissions();
@@ -45,14 +45,14 @@ public class UserRegisterController {
             return message;
         }
 
-        // permissions==0,说明是学生,则需要邮箱地址
-        if(permissions == 0 && (email == null || email.equals(""))){
+        // permissions==0,说明是学生,则需要手机
+        if(permissions == 0 && (phone == null || phone.equals(""))){
             message.setCodeAndPrompt("-2", "用户信息不全!");
             return message;
         }
 
         if(permissions == 0){
-            User user1 = userRegisterService.findUserByEmail(email);
+            User user1 = userRegisterService.findUserByPhone(phone);
             if (user1 != null){
                 message.setCodeAndPrompt("-5", "邮箱已被注册!");
                 return message;

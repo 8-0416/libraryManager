@@ -7,9 +7,6 @@ import java.util.UUID;
  * @date 2019/11/1
  **/
 public class UUIDUtil {
-    public static String getUUID() {
-        return UUID.randomUUID().toString().replace("-", "");
-    }
 
     /**
      * 获取六位随机验证码

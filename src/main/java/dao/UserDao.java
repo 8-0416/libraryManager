@@ -15,9 +15,9 @@ public interface UserDao {
     // 添加用户
     Integer addUser(RegisterDto registerDto);
 
-    // 根据邮箱查询用户
-    User findUserByEmail(String email);
+    // 根据手机查询用户
+    User findUserByPhone(String phone);
 
-    // 根据邮箱修改密码
-    Integer updatePasswordByEmail(@Param("email") String email, @Param("password") String password);
+    // 根据手机修改密码
+    Integer updatePasswordByPhone(@Param("phone") String phone, @Param("password") String password);
 }

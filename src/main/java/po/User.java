@@ -10,8 +10,8 @@ public class User {
     private String userId;
     // 姓名
     private String name;
-    // 邮箱
-    private String email;
+    // 手机号码
+    private String phone;
     // 密码
     private String password;
     // 用户权限
@@ -33,12 +33,12 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {

@@ -14,6 +14,6 @@ public interface UserRegisterService {
     // 根据userId查询用户
     User findUserByUserId(String userId);
 
-    // 根据邮箱查询用户
-    User findUserByEmail(String email);
+    // 根据手机查询用户
+    User findUserByPhone(String phone);
 }

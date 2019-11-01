@@ -28,7 +28,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     }
 
     @Override
-    public User findUserByEmail(String email) {
-        return userDao.findUserByEmail(email);
+    public User findUserByPhone(String phone) {
+        return userDao.findUserByPhone(phone);
     }
 }

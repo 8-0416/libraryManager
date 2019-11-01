@@ -22,10 +22,10 @@ public class ChangePasswordController {
 
     @RequestMapping("/changePassword.do")
     @ResponseBody
-    public Message changePassword(String email, String password, String confirmPassword) {
+    public Message changePassword(String phone, String password, String confirmPassword) {
         Message message = new Message();
 
-        if (email == null || email.equals("") || password == null || password.equals("") || confirmPassword == null || confirmPassword.equals("")) {
+        if (phone == null || phone.equals("") || password == null || password.equals("") || confirmPassword == null || confirmPassword.equals("")) {
             return message.setCodeAndPrompt("-3", "必要数据为空！");
         }
 
@@ -35,14 +35,14 @@ public class ChangePasswordController {
         }
 
         // 根据邮箱查看是否有此用户存在
-        User user = changePasswordService.findUserByEmail(email);
+        User user = changePasswordService.findUserByPhone(phone);
 
         if (user == null) {
             return message.setCodeAndPrompt("0", "用户不存在！");
         }
 
         // 根据邮箱修改密码
-        Integer flag = changePasswordService.updatePasswordByEmail(email, password);
+        Integer flag = changePasswordService.updatePasswordByPhone(phone, password);
 
         if (flag == 1) {
             return message.setCodeAndPrompt("1", "修改密码成功！");

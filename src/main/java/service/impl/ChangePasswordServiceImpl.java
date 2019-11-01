@@ -17,12 +17,12 @@ public class ChangePasswordServiceImpl implements ChangePasswordService {
     UserDao userDao;
 
     @Override
-    public Integer updatePasswordByEmail(String email, String password) {
-        return userDao.updatePasswordByEmail(email, password);
+    public Integer updatePasswordByPhone(String phone, String password) {
+        return userDao.updatePasswordByPhone(phone, password);
     }
 
     @Override
-    public User findUserByEmail(String email) {
-        return userDao.findUserByEmail(email);
+    public User findUserByPhone(String phone) {
+        return userDao.findUserByPhone(phone);
     }
 }
