@@ -30,8 +30,8 @@
         <property name="maxUploadSize" value="20971520" />
     </bean>
 
-    <!-- 配置拦截器 -->
-    <!--<mvc:interceptors>
+     <!--配置拦截器-->
+<!--    <mvc:interceptors>
         <mvc:interceptor>
             &lt;!&ndash; 指定拦截的路径 &ndash;&gt;
             <mvc:mapping path="/**/*.do"/>

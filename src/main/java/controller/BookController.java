@@ -61,6 +61,13 @@ public class BookController {
         if(book.isEmpty()){
             return message.setCodeAndPrompt("0", "查询不到符合条件的数据!");
         }
+
+        for(Book temp : book){
+            if(temp.getBookPicture() == null){
+                temp.setBookPicture(DEFAULT_PICTURE);
+            }
+        }
+
         Map<String, List> map = new HashMap<>();
         map.put("listBook", book);
         message.setReturnData(map);
@@ -180,6 +187,11 @@ public class BookController {
         }
         if(books.isEmpty()){
             return message.fail("此书不存在");
+        }
+        for(Book book : books){
+            if(book.getBookPicture() == null){
+                book.setBookPicture(DEFAULT_PICTURE);
+            }
         }
         Map<String, List> map = new HashMap<>();
         map.put("listBook", books);
